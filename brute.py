@@ -1,6 +1,7 @@
 import requests
 import random
 import string
+import time
 from bs4 import BeautifulSoup as bs
 
 words = []
@@ -38,18 +39,22 @@ def gen_chinese_url(base_url="http://bit.ly/", url_num=500):
 
 if __name__ == '__main__':
 
-    url_num = 100
+    url_num = 500
     valid_url = 0
 
-    for i, url in enumerate(gen_random_url(base_url="http://goo.gl/", url_num=url_num)):
+    for i, url in enumerate(gen_random_url(base_url="http://goo.gl/", url_num=url_num, token_len=6)):
         origin_url = ""
         r = requests.get(url, allow_redirects=False)
-        assert(r.status_code != 403) # 403 may represent YOU ARE BANNED!!
+        while r.status_code == 403: # 403 may represent YOU ARE BANNED!!
+            time.sleep(5)
+            print("Sleep")
+            r = requests.get(url, allow_redirects=False)
 
         if r.status_code != 404:
             valid_url += 1
             soup = bs(r.text, 'html.parser')
             origin_url = soup.find('a')['href']
+
 
         print(i, r.status_code, url, origin_url)
 
