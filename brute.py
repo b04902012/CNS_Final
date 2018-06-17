@@ -67,10 +67,9 @@ if __name__ == '__main__':
         if r.status_code != 404:
             valid_url += 1
             soup = bs(r.text, 'html.parser')
-            origin_url = soup.find('a')['href']
+            # origin_url = soup.find('a')['href']
 
-
-        print(i, r.status_code, url, origin_url)
+        print(i, r.status_code, url)
 
     print("{:.2%}".format(valid_url / url_num))
 
