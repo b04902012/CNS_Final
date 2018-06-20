@@ -15,7 +15,8 @@ window.addEventListener('load',function(){
         )
         let longURL=document.getElementById('longURL').value
         request.onreadystatechange=function(){
-            if(request.readyState==4){
+            if(request.readyState===4){
+                console.log('!')
                 console.log(request.responseText)
             }
         }

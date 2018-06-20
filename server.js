@@ -34,6 +34,7 @@ var srv=http.createServer(async function(req,res){
             }
             longURL=await utils.find(pathname)
             console.log(longURL)
+            res.end(longURL)
         })
     }
     if(req.method==='POST'){
@@ -45,7 +46,8 @@ var srv=http.createServer(async function(req,res){
             let longURL=Buffer.concat(body).toString()
             console.log(longURL)
             let shortURL=await utils.getValidShortURL()
-            utils.insert(shortURL,longURL)
+            await utils.insert(shortURL,longURL)
+            res.end(shortURL)
         })
     }
         
