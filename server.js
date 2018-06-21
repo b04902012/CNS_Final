@@ -46,6 +46,7 @@ var srv=http.createServer(async function(req,res){
             let longURL=Buffer.concat(body).toString()
             console.log(longURL)
             let shortURL=await utils.getValidShortURL()
+            console.log(shortURL)
             await utils.insert(shortURL,longURL)
             res.end(shortURL)
         })
