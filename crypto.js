@@ -18,16 +18,34 @@ hash=(s,n=1,salt='')=>{
 }
 
 encrypt=(data,key,iv)=>{
-    return new Promise((res,rej)=>{
+    key=pbkdf2.pbkdf2Sync(key,'',1,32,'sha256')
+    console.log(key)
+    console.log(iv)
+    let cipher=crypto.createCipheriv('aes256', key, iv)
+    let encrypted=cipher.update(data,'utf8','hex')
+    encrypted+=cipher.final('hex')
+    return encrypted
+    /*return new Promise((res,rej)=>{
         key=pbkdf2.pbkdf2Sync(key,'',1,32,'sha256')
         console.log(key)
         console.log(iv)
         let cipher=crypto.createCipheriv('aes256', key, iv)
-    }
+        let encrypted=cipher.update(data,'utf8','hex')
+        encrypted+=cipher.final('hex')
+        return encrypted
+    }*/
 }
 
 decrypt=(data,key,iv)=>{
-    return new Promise((res,rej)=>{
+    key=pbkdf2.pbkdf2Sync(key,'',1,32,'sha256')
+    console.log(data)
+    console.log(key)
+    console.log(iv)
+    let decipher=crypto.createDecipheriv('aes256',key,iv)
+    let decrypted=decipher.update(data,'hex','utf8')
+    decrypted+=decipher.final('utf8')
+    return decrypted
+/*    return new Promise((res,rej)=>{
         key=pbkdf2.pbkdf2Sync(key,'',1,32,'sha256')
         console.log(data)
         console.log(key)
@@ -45,7 +63,7 @@ decrypt=(data,key,iv)=>{
         })
         decipher.write(data,hex)
         decipher.end()
-    }
+    }*/
 }
 
 module.exports={
