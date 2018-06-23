@@ -3,17 +3,20 @@ const db=require('./database')
 const hash=require('./crypto').hash
 const encrypt=require('./crypto').encrypt
 const decrypt=require('./crypto').decrypt
+const randomNumber=require('random-number-csprng')
 
-function getRandomString(digits,all=false){
+async function getRandomString(digits,all=false){
     let charset="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let s=''
-    while(digits--)
-        s+=charset.charAt(Math.floor(Math.random()*charset.length));
+    for(let i=0;i<digits;i++){
+        randidx=await randomNumber(0,charset.length)
+        s+=charset.charAt(randidx);
+    }
     return s;
 }
 
 exports.getValidShortURL=async()=>{
-    let shortURL=getRandomString(6)
+    let shortURL=await getRandomString(6)
     let result=await exports.find(shortURL)
     while(result){
         console.log('result: '+result)

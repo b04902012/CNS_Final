@@ -16,8 +16,12 @@ window.addEventListener('load',function(){
         let longURL=document.getElementById('longURL').value
         request.onreadystatechange=function(){
             if(request.readyState===4){
-                console.log('!')
-                console.log(request.responseText)
+                result=document.getElementById('result')
+                result.style.visibility='visible'
+                shortURLNode=document.getElementById('shortURL')
+                shortURLNode.value='http://handso.me/'+request.responseText
+                shortURLNode.select()
+                
             }
         }
         request.send(longURL)

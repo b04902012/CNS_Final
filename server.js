@@ -9,7 +9,6 @@ var utils=require('./utils')
 var srv=http.createServer(async function(req,res){
     if(req.method==='GET'){
         var pathname=url.parse(req.url).pathname
-        console.log(pathname)
         if(pathname[0]==='/')pathname=pathname.substr(1)
         if(pathname===''){
             res.writeHead(200,{'Content-Type':'text/html'})
@@ -17,7 +16,6 @@ var srv=http.createServer(async function(req,res){
             return
         }
         datapath='./data/'+pathname
-        console.log(datapath)
         fs.stat(datapath,async function(err,stats){
             if(stats&&stats.isFile()){
                 if(path.extname(datapath)==='.css'){
@@ -33,8 +31,11 @@ var srv=http.createServer(async function(req,res){
                 return
             }
             longURL=await utils.find(pathname)
-            console.log(longURL)
-            res.end(longURL)
+            if(longURL){
+                console.log(longURL)
+                res.writeHead(303,{'Location':longURL})
+                res.end()
+            }
         })
     }
     if(req.method==='POST'){
@@ -44,13 +45,21 @@ var srv=http.createServer(async function(req,res){
             body.push(data)
         }).on('end',async()=>{
             let longURL=Buffer.concat(body).toString()
-            console.log(longURL)
+            try{
+                longURL=new URL(longURL).href
+            }
+            catch(err){
+                console.log(err)
+                res.end()
+                return
+            }
             let shortURL=await utils.getValidShortURL()
             console.log(shortURL)
             await utils.insert(shortURL,longURL)
+            res.writeHead(200,{'Content-Type':'text'})
             res.end(shortURL)
         })
     }
         
 })
-srv.listen('8000')
+srv.listen('80')

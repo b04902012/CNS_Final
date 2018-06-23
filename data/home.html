@@ -5,14 +5,18 @@
     <script src='home.js'></script>
 </head>
 <body>
+    <div id=top class=bg></div>
 	<div id=container>
-        <div id=title>Shorten your links.</div>
-        <div id=form>
-            <input type="text" id=longURL value="Input your original URL here"><br>
-            <input type="submit" id="Button" value="Shorten">
-        </div>
-        <div id=result style="visibility:hidden">
-            Your shorten URL: <input type="text" id = shortURL><br>
+        <div id=form style="display:block">
+            <input type="text" id=longURL placeholder="Input your original URL here" style="display:inline-block"><input type="submit" id="Button" value="Shorten" style="display:inline-block">
+        </div><br>
+        <div id=result>
+            Your shorten URL: <input type="text" id = shortURL>
         </div>
 	</div>
+    <div id=bottom class=bg></div>
+    <div id=text>
+        <div id=title>Handso.me</div>
+        <div id=subtitle>A secure URL shortener</div>
+    </div>
 </body>

@@ -1,0 +1,79 @@
+body{
+    position:absolute;
+    margin:0;
+    height:100vh;
+    background-color:#BBF;
+    overflow:hidden;
+}
+.bg{
+    height:100vh;
+    background-color:#335;
+    width:100vw;
+}
+#top{
+    position:absolute;
+    top:-70vh;
+    left:0;
+    box-shadow:0 10px 10px rgba(0,0,0,0.5),0 1px 1px rgba(0,0,0,.8);
+}
+#bottom{
+    position:absolute;
+    box-shadow:0 -5px 10px rgba(0,0,0,0.3);
+    top:50vh;
+    left:0;
+}
+#text{
+    position:absolute;
+    top:5vh;
+    width:100vw;
+    color:#DDD;
+}
+#title{
+    z-index:100;
+    font-size:60px;
+    font-family:sans-serif;
+    text-shadow:0 5px 10px rgba(0,0,0,1.0);
+    text-align:center;
+}
+#subtitle{
+    margin:20px;
+    z-index:100;
+    text-shadow:0 3px 8px rgba(0,0,0,1.0);
+    font-size:20px;
+    font-family:sans-serif;
+    text-align:center;
+}
+#container{
+    position:absolute;
+    width:80vw;
+    left:10vw;
+    top:calc(30vh + 30px);
+    height:50vh;
+}
+#form{
+    width:100%;
+    position:relative;
+}
+#longURL{
+    float:left;
+    width:calc(80vw - 231px);
+    height:10vh;
+    font-size:7vh;
+}
+#Button{
+    float:right;
+    width: 200px;
+    height:10vh;
+    font-size:7vh;
+}
+#result{
+    position:absolute;
+    left:0;
+    top:20vh;
+    width:100%;
+    font-size:7vh;
+}
+#shortURL{
+    font-size:7vh;
+    display:inline-block;
+}
