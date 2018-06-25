@@ -18,10 +18,21 @@ window.addEventListener('load',function(){
             if(request.readyState===4){
                 result=document.getElementById('result')
                 result.style.visibility='visible'
-                shortURLNode=document.getElementById('shortURL')
-                shortURLNode.value='http://handso.me/'+request.responseText
-                shortURLNode.select()
-                
+                let shortURLNode=document.getElementById('shortURL')
+                let longURLNode=document.getElementById('longURL')
+                longURLNode.value=request.responseText.split('\n')[0]
+                shortURLNode.value=request.responseText.split('\n')[1]
+                if(request.status===400){
+                    errorNode=document.getElementById('error')
+                    errorNode.innerHTML=request.responseText.split('\n')[1]
+                    bottomNode.style.top='50vh'
+                }
+                else{
+                    shortURLNode.select()
+                    errorNode.style.display='none'
+                    bottomNode=document.getElementById('bottom')
+                    bottomNode.style.top='70vh'
+                }
             }
         }
         request.send(longURL)

@@ -16,11 +16,11 @@ async function getRandomString(digits,all=false){
 }
 
 exports.getValidShortURL=async()=>{
-    let shortURL=await getRandomString(6)
+    let shortURL=await getRandomString(7)
     let result=await exports.find(shortURL)
     while(result){
         console.log('result: '+result)
-        shortURL=getRandomString(6)
+        shortURL=getRandomString(7)
         result=await exports.find(shortURL)
     }
     return shortURL

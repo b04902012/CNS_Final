@@ -15,6 +15,7 @@ var srv=http.createServer(async function(req,res){
             fs.createReadStream('data/home.html').pipe(res)
             return
         }
+        console.log(pathname)
         datapath='./data/'+pathname
         fs.stat(datapath,async function(err,stats){
             if(stats&&stats.isFile()){
@@ -36,6 +37,11 @@ var srv=http.createServer(async function(req,res){
                 res.writeHead(303,{'Location':longURL})
                 res.end()
             }
+            else{
+                res.writeHead(404,{'Content-Type':'text/html'})
+                fs.createReadStream('data/404.html').pipe(res)
+                return 
+            }
         })
     }
     if(req.method==='POST'){
@@ -49,15 +55,20 @@ var srv=http.createServer(async function(req,res){
                 longURL=new URL(longURL).href
             }
             catch(err){
-                console.log(err)
-                res.end()
+                res.writeHead(400,{'Content-Type':'text'})
+                res.end(longURL+'\n'+'The URL you requested is invalid.')
+                return
+            }
+            if(longURL.length<25){
+                res.writeHead(400,{'Content-Type':'text'})
+                res.end(longURL+'\n'+'The URL you requested is shorter than our shorten URL.')
                 return
             }
             let shortURL=await utils.getValidShortURL()
             console.log(shortURL)
             await utils.insert(shortURL,longURL)
             res.writeHead(200,{'Content-Type':'text'})
-            res.end(shortURL)
+            res.end(longURL+'\n'+'http://handso.me/'+shortURL)
         })
     }
         

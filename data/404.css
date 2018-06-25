@@ -2,12 +2,12 @@ body{
     position:absolute;
     margin:0;
     height:100vh;
-    background-color:#BBF;
+    background-color:#FBB;
     overflow:hidden;
 }
 .bg{
     height:100vh;
-    background-color:#335;
+    background-color:#533;
     width:100vw;
 }
 #top{
@@ -20,12 +20,12 @@ body{
 #bottom{
     position:absolute;
     box-shadow:0 -5px 10px rgba(0,0,0,0.3);
-    top:50vh;
+    top:70vh;
     left:0;
     z-index:100;
 }
 #text{
-    position:fixed;
+    position:absolute;
     top:5vh;
     width:100vw;
     color:#DDD;
@@ -47,52 +47,23 @@ body{
     text-align:center;
 }
 #container{
+    font-family:serif;
     position:absolute;
     width:80vw;
     left:10vw;
     top:calc(30vh + 30px);
     height:50vh;
     z-index=50;
-}
-#form{
-    width:100%;
-    position:relative;
-}
-#longURL{
-    font-family:monospace;
-    float:left;
-    width:calc(80vw - 231px);
-    height:10vh;
-    font-size:7vh;
-}
-#Button{
-    float:right;
-    width: 200px;
-    height:10vh;
-    font-size:7vh;
-}
-#result{
-    position:absolute;
-    left:0;
-    top:20vh;
-    width:100%;
-    font-size:7vh;
+    font-size:20px;
+    text-align:center;
 }
 #shortURL{
     font-family:monospace;
-    width:calc(100% - 250px);
-    font-size:7vh;
-    display:inline-block;
-    height:10vh;
 }
-#error{
-    position:relative;
-    text-shadow:0 5px 10px rgba(0,0,0,1.0);
-    font-family:sans-serif;
-    width:80vw;
-    font-size:30px;
-    text-align:center;
-    color:red;
-    margin-top:10vh;
-    left:10vw;
+#code{
+    font-family:monospace;
+    font-size:50px;
+    margin:20px;
+    color:black;
+    text-shadow:0 3px 8px rgba(0,0,0,0.8);
 }
