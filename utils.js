@@ -5,11 +5,12 @@ const encrypt=require('./crypto').encrypt
 const decrypt=require('./crypto').decrypt
 const randomNumber=require('random-number-csprng')
 
-async function getRandomString(digits,all=false){
+async function getRandomString(digits){
     let charset="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let s=''
     for(let i=0;i<digits;i++){
-        randidx=await randomNumber(0,charset.length)
+        randidx=await randomNumber(0,charset.length-1)
+        console.log(randidx)
         s+=charset.charAt(randidx);
     }
     return s;
@@ -20,7 +21,7 @@ exports.getValidShortURL=async()=>{
     let result=await exports.find(shortURL)
     while(result){
         console.log('result: '+result)
-        shortURL=getRandomString(7)
+        shortURL=await getRandomString(7)
         result=await exports.find(shortURL)
     }
     return shortURL

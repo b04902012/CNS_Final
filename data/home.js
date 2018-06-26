@@ -23,12 +23,14 @@ window.addEventListener('load',function(){
                 longURLNode.value=request.responseText.split('\n')[0]
                 shortURLNode.value=request.responseText.split('\n')[1]
                 if(request.status===400){
-                    errorNode=document.getElementById('error')
+                    let errorNode=document.getElementById('error')
                     errorNode.innerHTML=request.responseText.split('\n')[1]
+                    errorNode.style.display='block'
                     bottomNode.style.top='50vh'
                 }
                 else{
                     shortURLNode.select()
+                    let errorNode=document.getElementById('error')
                     errorNode.style.display='none'
                     bottomNode=document.getElementById('bottom')
                     bottomNode.style.top='70vh'

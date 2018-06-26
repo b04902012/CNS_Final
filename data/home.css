@@ -80,7 +80,7 @@ body{
 }
 #shortURL{
     font-family:monospace;
-    width:calc(100% - 250px);
+    width:calc(100% - 300px);
     font-size:7vh;
     display:inline-block;
     height:10vh;
