@@ -17,4 +17,4 @@ You can modify some constants in ```config.js```.
 
 \(N\) : Number of iterations for key stretching.
 
-\(L\) : Length of short URL.
+\(L\) : Length of short URL token.

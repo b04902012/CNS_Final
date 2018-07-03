@@ -12,7 +12,6 @@ async function getRandomString(digits){
     let s=''
     for(let i=0;i<digits;i++){
         randidx=await randomNumber(0,charset.length-1)
-        console.log(randidx)
         s+=charset.charAt(randidx);
     }
     return s;
@@ -22,7 +21,6 @@ exports.getValidShortURL=async()=>{
     let shortURL=await getRandomString(L)
     let result=await exports.find(shortURL)
     while(result){
-        console.log('result: '+result)
         shortURL=await getRandomString(L)
         result=await exports.find(shortURL)
     }

@@ -16,7 +16,6 @@ var srv=http.createServer(async function(req,res){
             fs.createReadStream('data/home.html').pipe(res)
             return
         }
-        console.log(pathname)
         datapath='./data/'+pathname
         fs.stat(datapath,async function(err,stats){
             if(stats&&stats.isFile()){
@@ -34,7 +33,6 @@ var srv=http.createServer(async function(req,res){
             }
             longURL=await utils.find(pathname)
             if(longURL){
-                console.log(longURL)
                 res.writeHead(303,{'Location':longURL})
                 res.end()
             }
@@ -46,7 +44,6 @@ var srv=http.createServer(async function(req,res){
         })
     }
     if(req.method==='POST'){
-        console.log('POST')
         let body=[]
         req.on('data',data=>{
             body.push(data)
@@ -66,7 +63,6 @@ var srv=http.createServer(async function(req,res){
                 return
             }
             let shortURL=await utils.getValidShortURL()
-            console.log(shortURL)
             await utils.insert(shortURL,longURL)
             res.writeHead(200,{'Content-Type':'text'})
             res.end(longURL+'\n'+'http://handso.me/'+shortURL)
