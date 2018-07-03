@@ -1,5 +1,6 @@
 const crypto = require('crypto')
-const pbkdf2 = require('pbkdf2')
+const pbkdf2 = crypto.pbkdf2Sync
+const N = require('./config').N
 hex2a=(hex)=>{
     var str=''
     for(i=0;i<64;i+=2)
@@ -18,7 +19,7 @@ hash=(s,n=1,salt='')=>{
 }
 
 encrypt=(data,key,iv)=>{
-    key=pbkdf2.pbkdf2Sync(key,'',1,32,'sha256')
+    key=pbkdf2(key,'',N,32,'sha256')
     console.log(key)
     console.log(iv)
     let cipher=crypto.createCipheriv('aes256', key, iv)
@@ -37,7 +38,7 @@ encrypt=(data,key,iv)=>{
 }
 
 decrypt=(data,key,iv)=>{
-    key=pbkdf2.pbkdf2Sync(key,'',1,32,'sha256')
+    key=pbkdf2(key,'',N,32,'sha256')
     console.log(data)
     console.log(key)
     console.log(iv)

@@ -5,6 +5,7 @@ var db=require('./database')
 var qs=require('querystring')
 var fs=require('fs')
 var utils=require('./utils')
+const L=require('./config').L
 
 var srv=http.createServer(async function(req,res){
     if(req.method==='GET'){
@@ -59,7 +60,7 @@ var srv=http.createServer(async function(req,res){
                 res.end(longURL+'\n'+'The URL you requested is invalid.')
                 return
             }
-            if(longURL.length<25){
+            if(longURL.length<18+L){
                 res.writeHead(400,{'Content-Type':'text'})
                 res.end(longURL+'\n'+'The URL you requested is shorter than our shorten URL.')
                 return

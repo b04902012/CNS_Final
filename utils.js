@@ -4,6 +4,8 @@ const hash=require('./crypto').hash
 const encrypt=require('./crypto').encrypt
 const decrypt=require('./crypto').decrypt
 const randomNumber=require('random-number-csprng')
+const N = require('./config').N
+const L = require('./config').L
 
 async function getRandomString(digits){
     let charset="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -17,11 +19,11 @@ async function getRandomString(digits){
 }
 
 exports.getValidShortURL=async()=>{
-    let shortURL=await getRandomString(7)
+    let shortURL=await getRandomString(L)
     let result=await exports.find(shortURL)
     while(result){
         console.log('result: '+result)
-        shortURL=await getRandomString(7)
+        shortURL=await getRandomString(L)
         result=await exports.find(shortURL)
     }
     return shortURL
@@ -29,15 +31,15 @@ exports.getValidShortURL=async()=>{
 
 exports.insert=(shortURL,longURL,iv)=>{
     iv=crypto.randomBytes(16)
-    longURL=encrypt(longURL,hash(shortURL,50,iv),iv)
-    return db.insert(hash(shortURL,100),longURL,iv)
+    longURL=encrypt(longURL,hash(shortURL,1,iv),iv)
+    return db.insert(hash(shortURL,2*N),longURL,iv)
 }
 
 exports.find=async(shortURL)=>{
-    let result=await db.find(hash(shortURL,100))
+    let result=await db.find(hash(shortURL,2*N))
     if(!result)return undefined
     longURL=result.longURL
     iv=Buffer.from(result.iv,'hex')
-    longURL=decrypt(longURL,hash(shortURL,50,iv),iv)
+    longURL=decrypt(longURL,hash(shortURL,1,iv),iv)
     return longURL
 }
